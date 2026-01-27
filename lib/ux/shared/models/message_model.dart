@@ -23,12 +23,12 @@ class MessageModel extends Message {
 
   factory MessageModel.fromMap(Map<String, dynamic> json) {
     return MessageModel(
-      id: json['id'] as String,
-      chatId: json['chatId'] as String,
-      content: json['content'] as String,
-      timestamp: DateTime.parse(json['timestamp'] as String),
-      isSentByMe: (json['isSentByMe'] as int) == 1,
-      status: MessageStatus.values[json['status'] as int],
+      id: json['id'] ?? '',
+      chatId: json['chatId'] ?? '',
+      content: json['content'] ?? '',
+      timestamp: DateTime.tryParse(json['timestamp'] ?? '') ?? DateTime.now(),
+      isSentByMe: (json['isSentByMe'] ?? 0) == 1,
+      status: MessageStatus.values[json['status'] ?? 0],
     );
   }
 

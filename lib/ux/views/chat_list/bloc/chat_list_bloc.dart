@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_assessment/platform/data_source/repositories/chat_repository.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_list/bloc/chat_list_event.dart';
@@ -25,6 +26,7 @@ class ChatListBloc extends Bloc<ChatListEvent, ChatListState> {
 
       emit(ChatListLoaded(chats: chats));
     } catch (e) {
+      debugPrint(e.toString());
       emit(ChatListError('Failed to load chats: ${e.toString()}'));
     }
   }

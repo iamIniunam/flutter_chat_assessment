@@ -1,6 +1,7 @@
 class AppImageStrings {
   AppImageStrings._();
 
+  //Stories
   static const String avatar1 = 'https://i.pravatar.cc/150?img=11';
   static const String avatar2 = 'https://i.pravatar.cc/150?img=23';
   static const String avatar3 = 'https://i.pravatar.cc/150?img=15';

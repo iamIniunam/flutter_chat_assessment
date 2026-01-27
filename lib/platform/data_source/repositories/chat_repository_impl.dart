@@ -28,7 +28,7 @@ class ChatRepositoryImpl implements ChatRepository {
 
     return result.map((row) {
       final userMap = {
-        'id': row['user_id'],
+        'id': row['id'],
         'name': row['name'],
         'avatar_url': row['avatar_url'],
         'is_online': row['is_online'],

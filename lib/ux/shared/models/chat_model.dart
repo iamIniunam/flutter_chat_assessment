@@ -28,15 +28,15 @@ class ChatModel extends Chat {
     Map<String, dynamic> userMap,
   ) {
     return ChatModel(
-      id: chatMap['id'] as String,
+      id: chatMap['id'] ?? '',
       user: UserModel.fromMap(userMap),
-      lastMessage: chatMap['last_message'] as String,
+      lastMessage: chatMap['last_message'] ?? '',
       lastMessageTime: DateTime.fromMillisecondsSinceEpoch(
-        chatMap['last_message_time'] as int,
+        chatMap['last_message_time'] ?? 0,
       ),
-      unreadCount: chatMap['unread_count'] as int,
+      unreadCount: chatMap['unread_count'] ?? 0,
       messageStatus:
-          MessageModel.stringToStatus(chatMap['message_status'] as String),
+          MessageModel.stringToStatus(chatMap['message_status'] ?? ''),
     );
   }
 

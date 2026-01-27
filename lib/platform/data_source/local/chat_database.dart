@@ -213,7 +213,7 @@ class ChatDatabase {
         'last_message_time':
             now.subtract(const Duration(hours: 8)).millisecondsSinceEpoch,
         'unread_count': 0,
-        'message_status': 'delivered',
+        'message_status': 'sent',
       },
       {
         'id': 'chat_5',
@@ -235,7 +235,6 @@ class ChatDatabase {
       },
     ];
 
-    // Insert chats
     for (final chat in chats) {
       await db.insert('chats', chat);
     }

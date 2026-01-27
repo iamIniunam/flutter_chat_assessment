@@ -21,12 +21,14 @@ class UserModel extends User {
 
   factory UserModel.fromMap(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      avatarUrl: json['avatarUrl'] as String,
-      isOnline: json['isOnline'] as bool? ?? false,
-      lastSeen: json['lastSeen'] != null
-          ? DateTime.parse(json['lastSeen'] as String)
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      avatarUrl: json['avatar_url'] ?? '',
+      isOnline: (json['is_online'] ?? 0) == 1,
+      lastSeen: json['last_seen'] != null
+          ? (json['last_seen'] is int
+              ? DateTime.fromMillisecondsSinceEpoch(json['last_seen'] as int)
+              : DateTime.tryParse(json['last_seen'].toString()))
           : null,
     );
   }
