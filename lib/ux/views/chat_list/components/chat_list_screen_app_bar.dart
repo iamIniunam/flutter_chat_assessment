@@ -16,8 +16,8 @@ class ChatListScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, top: 40, bottom: 20),
-      color: AppColors.primaryGreen,
+      padding: const EdgeInsets.only(left: 16, top: 40, bottom: 32),
+      color: AppColors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
