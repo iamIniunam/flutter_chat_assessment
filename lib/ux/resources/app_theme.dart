@@ -45,7 +45,7 @@ class AppTheme {
   static Widget tabBar({required List<TabItem> tabItems}) {
     return Container(
       height: 34,
-      margin: const EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 16),
+      margin: const EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 4),
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       decoration: BoxDecoration(
         color: AppColors.transparent,

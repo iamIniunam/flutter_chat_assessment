@@ -32,5 +32,6 @@ class AppDimens {
   static const double messageBubbleMaxWidth = 280.0;
   static const double messageBubblePadding = 12.0;
 
+//TODO: Adjust value to 10
   static const double ten = 12.0;
 }

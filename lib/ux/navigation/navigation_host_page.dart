@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_image_strings.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/blurred_bottom.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/home_app_bar.dart';
 import 'package:flutter_chat_assessment/ux/shared/models/ui_models.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_list/chat_list_screen.dart';
@@ -75,6 +76,7 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
                 child: pages[selectedIndex],
               ),
             ),
+            const SmoothBottomGradient(),
             Align(
               alignment: Alignment.bottomCenter,
               child: BottomNavBar(
@@ -115,7 +117,9 @@ class BottomNavBar extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             AppColors.primaryGreen,
-            AppColors.primaryGreen.withOpacity(0.8),
+            AppColors.primaryGreen,
+            AppColors.primaryGreen.withOpacity(0.9),
+            AppColors.primaryGreen,
             AppColors.primaryGreen,
           ],
           begin: Alignment.centerLeft,
@@ -132,31 +136,34 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(navBarIcons.length, (index) {
-          final bool isSelected = selectedIndex == index;
-          return GestureDetector(
-            onTap: () => onTap(index),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  navBarIcons[index],
-                  size: 28,
-                  color: isSelected ? AppColors.white : AppColors.iconGray,
-                ),
-                if (isSelected)
-                  Container(
-                    width: 6,
-                    height: 6,
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      shape: BoxShape.circle,
-                    ),
+        children: List.generate(
+          navBarIcons.length,
+          (index) {
+            final bool isSelected = selectedIndex == index;
+            return GestureDetector(
+              onTap: () => onTap(index),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    navBarIcons[index],
+                    size: 28,
+                    color: isSelected ? AppColors.white : AppColors.iconGray,
                   ),
-              ],
-            ),
-          );
-        }),
+                  if (isSelected)
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                        color: AppColors.white,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

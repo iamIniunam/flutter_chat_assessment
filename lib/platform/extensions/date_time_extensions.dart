@@ -1,7 +1,9 @@
 import 'package:intl/intl.dart';
 
-extension DateTimeExtensions on DateTime {
-  String formatChatTimestamp(DateTime dateTime) {
+class DateFormatter  {
+  DateFormatter._();
+
+  static String formatChatTimestamp(DateTime dateTime) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = DateTime(now.year, now.month, now.day - 1);

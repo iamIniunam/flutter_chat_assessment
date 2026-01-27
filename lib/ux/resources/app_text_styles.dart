@@ -13,7 +13,7 @@ class AppTextStyles {
 
   static const TextStyle lastMessage = TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
     color: AppColors.secondaryText,
   );
 
