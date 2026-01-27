@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
-import 'package:flutter_chat_assessment/ux/resources/app_text_styles.dart';
+import 'package:flutter_chat_assessment/ux/resources/app_theme.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/tab_item.dart';
 
 class ChatListScreenBody extends StatefulWidget {
   const ChatListScreenBody({super.key});
@@ -9,22 +10,7 @@ class ChatListScreenBody extends StatefulWidget {
   State<ChatListScreenBody> createState() => _ChatListScreenBodyState();
 }
 
-class _ChatListScreenBodyState extends State<ChatListScreenBody>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+class _ChatListScreenBodyState extends State<ChatListScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -40,28 +26,17 @@ class _ChatListScreenBodyState extends State<ChatListScreenBody>
           length: 2,
           child: Column(
             children: [
-              Container(
-                height: 34,
-                margin: const EdgeInsets.only(
-                    left: 16, top: 24, right: 16, bottom: 16),
-                padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColors.transparent,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.divider, width: 2),
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicator: BoxDecoration(
-                    color: AppColors.primaryGreen,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  labelStyle: AppTextStyles.activeTab,
-                  unselectedLabelStyle: AppTextStyles.inactiveTab,
-                  tabs: const [
-                    Tab(text: 'Chats'),
-                    Tab(text: 'Groups'),
+              AppTheme.tabBar(
+                tabItems: const [
+                  TabItem(title: 'Chats'),
+                  TabItem(title: 'Groups'),
+                ],
+              ),
+              const Expanded(
+                child: TabBarView(
+                  children: [
+                    Center(child: Text('Chats Content')),
+                    Center(child: Text('Groups Content')),
                   ],
                 ),
               ),

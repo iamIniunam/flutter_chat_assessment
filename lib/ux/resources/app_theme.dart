@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
+import 'package:flutter_chat_assessment/ux/resources/app_text_styles.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/tab_item.dart';
 
 class AppTheme {
   AppTheme._();
@@ -36,6 +38,29 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch().copyWith(
         primary: AppColors.primaryGreen,
         secondary: AppColors.secondaryGreen,
+      ),
+    );
+  }
+
+  static Widget tabBar({required List<TabItem> tabItems}) {
+    return Container(
+      height: 34,
+      margin: const EdgeInsets.only(left: 16, top: 24, right: 16, bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+      decoration: BoxDecoration(
+        color: AppColors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.divider, width: 2),
+      ),
+      child: TabBar(
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: BoxDecoration(
+          color: AppColors.primaryGreen,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        labelStyle: AppTextStyles.activeTab,
+        unselectedLabelStyle: AppTextStyles.inactiveTab,
+        tabs: tabItems,
       ),
     );
   }
