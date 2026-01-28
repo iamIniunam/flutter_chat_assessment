@@ -31,4 +31,8 @@ class AppColors {
   static const Color divider = Color(0xFFE9EDEF);
   static const Color tabIndicator = Color(0xFFFFFFFF);
   static const Color iconGray = Color(0xFF8696A0);
+
+  static const Color shimmerBaseDark = Color(0xFF0A2A1A);
+  static const Color shimmerHighlightDark = Color(0xFF1F4D38);
+  static const Color shimmerSurfaceDark = Color(0xFF123526);
 }

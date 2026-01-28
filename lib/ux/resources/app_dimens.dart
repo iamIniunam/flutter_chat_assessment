@@ -8,7 +8,7 @@ class AppDimens {
   static const double paddingXLarge = 24.0;
 
   static const double avatarSizeSmall = 40.0;
-  static const double avatarSizeMedium = 50.0;
+  static const double avatarSizeMedium = 56.0;
   static const double avatarSizeLarge = 60.0;
   static const double storyAvatarSize = 64.0;
   static const double storyAvatarPadding = 28.0;
@@ -36,6 +36,7 @@ class AppDimens {
 
   static const double sizeExtraExtraSmall = 2.0;
   static const double sizeExtraSmall = 6.0;
+  static const double sizeXSmall = 10.0;
   static const double sizeSmall = 12.0;
   static const double sizeExtraLarge = 28.0;
   static const double sizeXLarge = 40.0;
