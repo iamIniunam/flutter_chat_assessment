@@ -3,13 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_dimens.dart';
+import 'package:flutter_chat_assessment/ux/resources/app_strings.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/app_bottom_nav.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/blurred_bottom.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/empty_state.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/home_app_bar.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/page_indicators.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_bloc.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_event.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_state.dart';
-import 'package:flutter_chat_assessment/ux/views/chat_feed/chat_list_screen.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/chat_feed_page.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/components/user_stories_widget.dart';
 
 class NavigationHostPage extends StatefulWidget {
@@ -28,10 +31,10 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
 
   List<Widget> get pages {
     return [
-      const ChatListScreen(),
-      const Center(child: Text('Calls Page')),
-      const Center(child: Text('Camera Page')),
-      const Center(child: Text('Profile Page')),
+      const ChatFeedPage(),
+      const EmptyState(message: AppStrings.callsPage),
+      const EmptyState(message: AppStrings.cameraPage),
+      const EmptyState(message: AppStrings.profilePage),
     ];
   }
 
@@ -97,8 +100,8 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
                 decoration: const BoxDecoration(
                   color: AppColors.backgroundLight,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
+                    topLeft: Radius.circular(AppDimens.sizeXLarge),
+                    topRight: Radius.circular(AppDimens.sizeXLarge),
                   ),
                 ),
                 child: pages[selectedIndex],
@@ -107,7 +110,7 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
             const SmoothBottomGradient(),
             Align(
               alignment: Alignment.bottomCenter,
-              child: BottomNavBar(
+              child: AppBottomNav(
                 navBarIcons: navBarIcons,
                 selectedIndex: selectedIndex,
                 onTap: (int index) {
@@ -119,135 +122,6 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({
-    super.key,
-    required this.navBarIcons,
-    required this.selectedIndex,
-    required this.onTap,
-  });
-
-  final List<IconData> navBarIcons;
-  final int selectedIndex;
-  final ValueChanged<int> onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final int centerIndex = (navBarIcons.length / 2).floor();
-    List<Widget> navItems = [];
-    for (int i = 0; i < navBarIcons.length + 1; i++) {
-      if (i == centerIndex) {
-        navItems.add(
-          InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.all(AppDimens.sizeExtraSmall),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.primaryColor.withOpacity(0.2),
-                    blurRadius: AppDimens.paddingSmall,
-                    spreadRadius: AppDimens.sizeExtraExtraSmall,
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Icon(Icons.add_rounded,
-                    color: AppColors.primaryColor, size: 36),
-              ),
-            ),
-          ),
-        );
-      }
-      if (i < centerIndex) {
-        final bool isSelected = selectedIndex == i;
-        navItems.add(
-          GestureDetector(
-            onTap: () => onTap(i),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  navBarIcons[i],
-                  size: AppDimens.sizeExtraLarge,
-                  color: isSelected ? AppColors.white : AppColors.iconGray,
-                ),
-                if (isSelected)
-                  Container(
-                    width: AppDimens.sizeExtraSmall,
-                    height: AppDimens.sizeExtraSmall,
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
-      } else if (i > centerIndex) {
-        final int iconIndex = i - 1;
-        final bool isSelected = selectedIndex == iconIndex;
-        navItems.add(
-          GestureDetector(
-            onTap: () => onTap(iconIndex),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  navBarIcons[iconIndex],
-                  size: AppDimens.sizeExtraLarge,
-                  color: isSelected ? AppColors.white : AppColors.iconGray,
-                ),
-                if (isSelected)
-                  Container(
-                    width: AppDimens.sizeExtraSmall,
-                    height: AppDimens.sizeExtraSmall,
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
-      }
-    }
-    return Container(
-      height: 63,
-      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            AppColors.primaryColor.withOpacity(0.9),
-            AppColors.primaryGreen,
-            AppColors.primaryGreen.withOpacity(0.9),
-            AppColors.primaryGreen,
-            AppColors.primaryColor.withOpacity(0.9),
-          ],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withAlpha(20),
-            blurRadius: 20,
-            spreadRadius: 10,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: navItems,
       ),
     );
   }

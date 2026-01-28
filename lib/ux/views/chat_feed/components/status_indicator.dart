@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_assessment/platform/data_source/entities/message.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
+import 'package:flutter_chat_assessment/ux/resources/app_dimens.dart';
 
 class StatusIndicator extends StatelessWidget {
   final MessageStatus status;
@@ -9,7 +10,7 @@ class StatusIndicator extends StatelessWidget {
   const StatusIndicator({
     super.key,
     required this.status,
-    this.size = 16.0,
+    this.size = AppDimens.iconSizeSmall,
   });
 
   @override

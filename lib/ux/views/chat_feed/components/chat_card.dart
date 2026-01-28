@@ -35,7 +35,10 @@ class ChatCard extends StatelessWidget {
               height: AppDimens.avatarSizeLarge,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.secondaryGreen, width: 2),
+                border: Border.all(
+                  color: AppColors.secondaryGreen,
+                  width: AppDimens.sizeExtraExtraSmall,
+                ),
                 image: DecorationImage(
                   image: NetworkImage(chat.user.avatarUrl),
                   fit: BoxFit.cover,
@@ -54,7 +57,7 @@ class ChatCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppDimens.paddingXSmall),
                   Row(
                     children: [
                       Expanded(
@@ -77,17 +80,17 @@ class ChatCard extends StatelessWidget {
                   DateFormatter.formatChatTimestamp(chat.lastMessageTime),
                   style: AppTextStyles.timestamp,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppDimens.paddingSmall),
                 if (chat.unreadCount == 0)
                   StatusIndicator(
                     status: chat.messageStatus,
-                    size: 16,
+                    size: AppDimens.iconSizeSmall,
                   ),
                 if (chat.unreadCount > 0)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
+                      horizontal: AppDimens.sizeExtraSmall,
+                      vertical: AppDimens.sizeExtraExtraSmall,
                     ),
                     decoration: const BoxDecoration(
                       color: AppColors.unreadIndicator,

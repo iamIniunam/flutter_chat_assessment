@@ -11,6 +11,6 @@ class LoadChatFeed extends ChatFeedEvent {
   const LoadChatFeed();
 }
 
-class RefreshChats extends ChatFeedEvent {
-  const RefreshChats();
+class RefreshChatFeed extends ChatFeedEvent {
+  const RefreshChatFeed();
 }

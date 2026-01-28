@@ -14,7 +14,11 @@ class HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 16, top: 40, bottom: 35),
+      padding: const EdgeInsets.only(
+        left: AppDimens.paddingLarge,
+        top: AppDimens.appBarTopPadding,
+        bottom: AppDimens.appBarBottomPadding,
+      ),
       color: AppColors.primaryColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

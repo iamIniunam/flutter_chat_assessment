@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_strings.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_theme.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/empty_state.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/page_indicators.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/tab_item.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_bloc.dart';
@@ -9,14 +10,14 @@ import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_event.
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_state.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/components/chat_card.dart';
 
-class ChatListScreen extends StatefulWidget {
-  const ChatListScreen({super.key});
+class ChatFeedPage extends StatefulWidget {
+  const ChatFeedPage({super.key});
 
   @override
-  State<ChatListScreen> createState() => _ChatListScreenState();
+  State<ChatFeedPage> createState() => _ChatFeedPageState();
 }
 
-class _ChatListScreenState extends State<ChatListScreen> {
+class _ChatFeedPageState extends State<ChatFeedPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,14 +58,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                               onRefresh: () async {
                                 context
                                     .read<ChatFeedBloc>()
-                                    .add(const RefreshChats());
+                                    .add(const RefreshChatFeed());
                               },
-                              child: ListView.separated(
+                              child: ListView.builder(
                                 padding: EdgeInsets.zero,
                                 itemCount: chats.length,
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox.shrink();
-                                },
                                 itemBuilder: (context, index) {
                                   final chat = chats[index];
                                   return ChatCard(
@@ -78,7 +76,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                           return const SizedBox.shrink();
                         },
                       ),
-                      const Center(child: Text(AppStrings.groupsContent)),
+                      const EmptyState(message: AppStrings.groupsContent),
                     ],
                   ),
                 ),

@@ -6,8 +6,6 @@ class TabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      text: title,
-    );
+    return Tab(text: title);
   }
 }
