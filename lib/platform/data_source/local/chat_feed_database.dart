@@ -1,14 +1,11 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:uuid/uuid.dart';
 
-class ChatDatabase {
-  static final ChatDatabase instance = ChatDatabase._internal();
+class ChatFeedDatabase {
+  static final ChatFeedDatabase instance = ChatFeedDatabase._internal();
   static Database? _database;
 
-  final _uuid = const Uuid();
-
-  ChatDatabase._internal();
+  ChatFeedDatabase._internal();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -77,12 +74,10 @@ class ChatDatabase {
   Future<void> seedSampleData() async {
     final db = await database;
 
-    // Clear existing data
     await db.delete('messages');
     await db.delete('chats');
     await db.delete('users');
 
-    // Sample users data
     final users = [
       {
         'id': 'user_1',
@@ -171,12 +166,10 @@ class ChatDatabase {
       },
     ];
 
-    // Insert users
     for (final user in users) {
       await db.insert('users', user);
     }
 
-    // Sample chats data
     final now = DateTime.now();
     final chats = [
       {
@@ -237,121 +230,6 @@ class ChatDatabase {
 
     for (final chat in chats) {
       await db.insert('chats', chat);
-    }
-
-    // Sample messages for each chat
-    final messages = [
-      // Chat 1 messages
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_1',
-        'content': 'Hey there! How have you been?',
-        'timestamp':
-            now.subtract(const Duration(hours: 10)).millisecondsSinceEpoch,
-        'is_sent_by_me': 1,
-        'status': 'read',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_1',
-        'content': 'I\'m doing great, thanks!',
-        'timestamp':
-            now.subtract(const Duration(hours: 9)).millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'read',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_1',
-        'content': 'Want to catch up later?',
-        'timestamp': now
-            .subtract(const Duration(hours: 2, minutes: 30))
-            .millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'delivered',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_1',
-        'content': 'Hi how are you?',
-        'timestamp':
-            now.subtract(const Duration(hours: 2)).millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'delivered',
-      },
-      // Chat 2 messages
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_2',
-        'content': 'What are you up to today?',
-        'timestamp':
-            now.subtract(const Duration(hours: 5)).millisecondsSinceEpoch,
-        'is_sent_by_me': 1,
-        'status': 'read',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_2',
-        'content': 'I am going out bro',
-        'timestamp':
-            now.subtract(const Duration(hours: 3)).millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'delivered',
-      },
-      // Chat 3 messages
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_3',
-        'content': 'Missing you ❤️',
-        'timestamp':
-            now.subtract(const Duration(hours: 6)).millisecondsSinceEpoch,
-        'is_sent_by_me': 1,
-        'status': 'read',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_3',
-        'content': 'What are you doing darling',
-        'timestamp':
-            now.subtract(const Duration(hours: 5)).millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'read',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_3',
-        'content': 'Just working, will call you soon 😊',
-        'timestamp': now
-            .subtract(const Duration(hours: 4, minutes: 45))
-            .millisecondsSinceEpoch,
-        'is_sent_by_me': 1,
-        'status': 'read',
-      },
-      // Chat 4 messages
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_4',
-        'content': 'Hi how are you?',
-        'timestamp':
-            now.subtract(const Duration(hours: 8)).millisecondsSinceEpoch,
-        'is_sent_by_me': 0,
-        'status': 'delivered',
-      },
-      {
-        'id': _uuid.v4(),
-        'chat_id': 'chat_4',
-        'content': 'Good! What about you?',
-        'timestamp': now
-            .subtract(const Duration(hours: 7, minutes: 30))
-            .millisecondsSinceEpoch,
-        'is_sent_by_me': 1,
-        'status': 'delivered',
-      },
-    ];
-
-    // Insert messages
-    for (final message in messages) {
-      await db.insert('messages', message);
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class DateFormatter  {
+class DateFormatter {
   DateFormatter._();
 
   static String formatChatTimestamp(DateTime dateTime) {
@@ -20,13 +20,11 @@ class DateFormatter  {
     }
   }
 
-  /// Formats timestamp for message detail (time only)
-  String formatMessageTime(DateTime dateTime) {
+  static String formatMessageTime(DateTime dateTime) {
     return DateFormat('HH:mm').format(dateTime);
   }
 
-  /// Formats timestamp for chat header (last seen)
-  String formatLastSeen(DateTime dateTime) {
+  static String formatLastSeen(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
 

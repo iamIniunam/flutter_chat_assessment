@@ -4,10 +4,7 @@ import 'package:flutter_chat_assessment/ux/shared/components/story_item_widget.d
 import 'package:flutter_chat_assessment/ux/shared/models/ui_models.dart';
 
 class UserStoriesWidget extends StatelessWidget {
-  const UserStoriesWidget({
-    super.key,
-    required this.userStories,
-  });
+  const UserStoriesWidget({super.key, required this.userStories});
 
   final List<StoryItem> userStories;
 
@@ -16,7 +13,7 @@ class UserStoriesWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: AppDimens.paddingLarge),
       child: SizedBox(
-        height: 87,
+        height: AppDimens.storyItemWidgetHeight,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: userStories.length + 1,

@@ -7,7 +7,8 @@ class AppColors {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
-  static const Color primaryGreen = Color(0xFF075E54);
+  static const Color primaryColor = Color(0xFF01170B);
+  static const Color primaryGreen = Color(0xFF085D56);
   static const Color secondaryGreen = Color(0xFF25D366);
   static const Color tealGreen = Color(0xFF128C7E);
 
@@ -21,7 +22,6 @@ class AppColors {
   static const Color primaryText = Color(0xFF000000);
   static const Color secondaryText = Color(0xFF667781);
   static const Color timestampText = Color(0xFF8696A0);
-  static const Color whiteText = Color(0xFFFFFFFF);
 
   static const Color onlineGreen = Color(0xFF25D366);
   static const Color unreadIndicator = Color(0xFF25D366);

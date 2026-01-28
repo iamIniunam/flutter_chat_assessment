@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
-import 'package:flutter_chat_assessment/ux/resources/app_image_strings.dart';
+import 'package:flutter_chat_assessment/ux/resources/app_dimens.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/blurred_bottom.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/home_app_bar.dart';
-import 'package:flutter_chat_assessment/ux/shared/models/ui_models.dart';
-import 'package:flutter_chat_assessment/ux/views/chat_list/chat_list_screen.dart';
-import 'package:flutter_chat_assessment/ux/views/chat_list/components/user_stories_widget.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/page_indicators.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_bloc.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_event.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_state.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/chat_list_screen.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/components/user_stories_widget.dart';
 
 class NavigationHostPage extends StatefulWidget {
   const NavigationHostPage({super.key});
@@ -16,19 +20,20 @@ class NavigationHostPage extends StatefulWidget {
 }
 
 class _NavigationHostPageState extends State<NavigationHostPage> {
-  final List<StoryItem> userStories = [
-    StoryItem(profileImageUrl: AppImageStrings.avatar1, label: 'John'),
-    StoryItem(profileImageUrl: AppImageStrings.avatar2, label: 'Sheril'),
-    StoryItem(profileImageUrl: AppImageStrings.avatar3, label: 'Mark'),
-    StoryItem(profileImageUrl: AppImageStrings.avatar4, label: 'Aler'),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatFeedBloc>().add(const LoadChatFeed());
+  }
 
-  List<Widget> get pages => [
-        const ChatListScreen(),
-        const Center(child: Text('Calls Page')),
-        const Center(child: Text('Camera Page')),
-        const Center(child: Text('Profile Page')),
-      ];
+  List<Widget> get pages {
+    return [
+      const ChatListScreen(),
+      const Center(child: Text('Calls Page')),
+      const Center(child: Text('Camera Page')),
+      const Center(child: Text('Profile Page')),
+    ];
+  }
 
   List<IconData> navBarIcons = [
     Icons.home_rounded,
@@ -56,14 +61,37 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
               bottom: 0,
               child: HomeAppBar(
                 widget: selectedIndex == 0
-                    ? UserStoriesWidget(userStories: userStories)
+                    ? BlocBuilder<ChatFeedBloc, ChatFeedState>(
+                        builder: (context, state) {
+                        if (state is ChatFeedLoading) {
+                          return const PageLoadingIndicator();
+                        }
+
+                        if (state is ChatFeedError) {
+                          return const PageErrorIndicator();
+                        }
+
+                        if (state is ChatFeedLoaded) {
+                          final userStories = state.stories;
+
+                          if (userStories.isEmpty) {
+                            return const PageErrorIndicator(
+                                message: 'No stories available');
+                          }
+
+                          return UserStoriesWidget(userStories: userStories);
+                        }
+                        return const SizedBox.shrink();
+                      })
                     : null,
               ),
             ),
             Positioned(
               left: 0,
               right: 0,
-              top: selectedIndex == 0 ? 200 : 100,
+              top: selectedIndex == 0
+                  ? AppDimens.sizeXXLarge
+                  : AppDimens.storySectionHeight,
               bottom: 0,
               child: Container(
                 decoration: const BoxDecoration(
@@ -110,17 +138,100 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int centerIndex = (navBarIcons.length / 2).floor();
+    List<Widget> navItems = [];
+    for (int i = 0; i < navBarIcons.length + 1; i++) {
+      if (i == centerIndex) {
+        navItems.add(
+          InkWell(
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.all(AppDimens.sizeExtraSmall),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primaryColor.withOpacity(0.2),
+                    blurRadius: AppDimens.paddingSmall,
+                    spreadRadius: AppDimens.sizeExtraExtraSmall,
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: Icon(Icons.add_rounded,
+                    color: AppColors.primaryColor, size: 36),
+              ),
+            ),
+          ),
+        );
+      }
+      if (i < centerIndex) {
+        final bool isSelected = selectedIndex == i;
+        navItems.add(
+          GestureDetector(
+            onTap: () => onTap(i),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  navBarIcons[i],
+                  size: AppDimens.sizeExtraLarge,
+                  color: isSelected ? AppColors.white : AppColors.iconGray,
+                ),
+                if (isSelected)
+                  Container(
+                    width: AppDimens.sizeExtraSmall,
+                    height: AppDimens.sizeExtraSmall,
+                    decoration: const BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      } else if (i > centerIndex) {
+        final int iconIndex = i - 1;
+        final bool isSelected = selectedIndex == iconIndex;
+        navItems.add(
+          GestureDetector(
+            onTap: () => onTap(iconIndex),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  navBarIcons[iconIndex],
+                  size: AppDimens.sizeExtraLarge,
+                  color: isSelected ? AppColors.white : AppColors.iconGray,
+                ),
+                if (isSelected)
+                  Container(
+                    width: AppDimens.sizeExtraSmall,
+                    height: AppDimens.sizeExtraSmall,
+                    decoration: const BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      }
+    }
     return Container(
       height: 63,
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.primaryGreen,
+            AppColors.primaryColor.withOpacity(0.9),
             AppColors.primaryGreen,
             AppColors.primaryGreen.withOpacity(0.9),
             AppColors.primaryGreen,
-            AppColors.primaryGreen,
+            AppColors.primaryColor.withOpacity(0.9),
           ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
@@ -136,34 +247,7 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: List.generate(
-          navBarIcons.length,
-          (index) {
-            final bool isSelected = selectedIndex == index;
-            return GestureDetector(
-              onTap: () => onTap(index),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    navBarIcons[index],
-                    size: 28,
-                    color: isSelected ? AppColors.white : AppColors.iconGray,
-                  ),
-                  if (isSelected)
-                    Container(
-                      width: 6,
-                      height: 6,
-                      decoration: const BoxDecoration(
-                        color: AppColors.white,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                ],
-              ),
-            );
-          },
-        ),
+        children: navItems,
       ),
     );
   }

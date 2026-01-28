@@ -5,8 +5,6 @@ import 'package:flutter_chat_assessment/ux/resources/app_dimens.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_text_styles.dart';
 import 'package:flutter_chat_assessment/ux/shared/models/ui_models.dart';
 
-enum AvatarType { add, image }
-
 class StoryItemWidget extends StatelessWidget {
   final bool isAdd;
   final VoidCallback? onTap;
@@ -21,7 +19,7 @@ class StoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String? imageUrl = storyItem.profileImageUrl;
+    final String? imageUrl = storyItem.avatarUrl;
     final AvatarType avatarType = isAdd ? AvatarType.add : AvatarType.image;
 
     Widget avatarWidget;
@@ -30,23 +28,25 @@ class StoryItemWidget extends StatelessWidget {
         avatarWidget = DottedBorder(
           color: AppColors.secondaryGreen,
           borderType: BorderType.Circle,
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(AppDimens.paddingLarge),
           dashPattern: const [5, 3],
-          strokeWidth: 2,
+          strokeWidth: AppDimens.sizeExtraExtraSmall,
           child: const Icon(
-            Icons.add,
+            Icons.add_rounded,
             color: AppColors.secondaryGreen,
-            size: 32,
+            size: AppDimens.sizeExtraLarge,
           ),
         );
         break;
       case AvatarType.image:
         avatarWidget = Container(
-          width: AppDimens.storyAvatarSize,
-          height: AppDimens.storyAvatarSize,
+          padding: const EdgeInsets.all(AppDimens.storyAvatarPadding),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.secondaryGreen, width: 2),
+            border: Border.all(
+              color: AppColors.secondaryGreen,
+              width: AppDimens.sizeExtraExtraSmall,
+            ),
             image: DecorationImage(
               image: NetworkImage(imageUrl ?? ''),
               fit: BoxFit.cover,

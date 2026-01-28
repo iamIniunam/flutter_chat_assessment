@@ -8,21 +8,21 @@ class AppTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      primaryColor: AppColors.primaryGreen,
+      primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: AppColors.backgroundLight,
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primaryGreen,
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.whiteText),
+        iconTheme: IconThemeData(color: AppColors.white),
         titleTextStyle: TextStyle(
-          color: AppColors.whiteText,
+          color: AppColors.white,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.backgroundLight,
-        selectedItemColor: AppColors.primaryGreen,
+        selectedItemColor: AppColors.primaryColor,
         unselectedItemColor: AppColors.iconGray,
         type: BottomNavigationBarType.fixed,
         elevation: 8,
@@ -36,7 +36,7 @@ class AppTheme {
         space: 0,
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
-        primary: AppColors.primaryGreen,
+        primary: AppColors.primaryColor,
         secondary: AppColors.secondaryGreen,
       ),
     );

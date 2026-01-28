@@ -15,7 +15,7 @@ class HomeAppBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(left: 16, top: 40, bottom: 35),
-      color: AppColors.primaryGreen,
+      color: AppColors.primaryColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

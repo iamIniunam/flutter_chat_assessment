@@ -4,10 +4,10 @@ import 'package:flutter_chat_assessment/platform/data_source/repositories/chat_f
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_event.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_state.dart';
 
-class DataBloc extends Bloc<ChatFeedEvent, ChatFeedState> {
+class ChatFeedBloc extends Bloc<ChatFeedEvent, ChatFeedState> {
   final ChatFeedRepository _repository;
 
-  DataBloc(this._repository) : super(const ChatFeedInitial()) {
+  ChatFeedBloc(this._repository) : super(const ChatFeedInitial()) {
     on<LoadChatFeed>(_onLoadData);
     on<RefreshChats>(_onRefreshChats);
   }

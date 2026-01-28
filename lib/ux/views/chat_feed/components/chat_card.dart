@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_assessment/platform/data_source/entities/chat.dart';
-import 'package:flutter_chat_assessment/platform/extensions/date_time_extensions.dart';
+import 'package:flutter_chat_assessment/ux/shared/components/date_formatter.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_colors.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_dimens.dart';
 import 'package:flutter_chat_assessment/ux/resources/app_text_styles.dart';
-import 'package:flutter_chat_assessment/ux/views/chat_list/components/status_indicator.dart';
+import 'package:flutter_chat_assessment/ux/views/chat_feed/components/status_indicator.dart';
 
 class ChatCard extends StatelessWidget {
   const ChatCard({

@@ -1,9 +1,11 @@
+enum AvatarType { add, image }
+
 class StoryItem {
   final String label;
-  final String? profileImageUrl;
+  final String? avatarUrl;
 
   StoryItem({
     required this.label,
-    this.profileImageUrl,
+    this.avatarUrl,
   });
 }

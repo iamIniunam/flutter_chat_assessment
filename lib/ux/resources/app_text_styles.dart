@@ -26,21 +26,21 @@ class AppTextStyles {
   static const TextStyle unreadCount = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w600,
-    color: AppColors.whiteText,
+    color: AppColors.primaryText,
   );
 
   // Story Name Style
   static const TextStyle storyName = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    color: AppColors.whiteText,
+    color: AppColors.white,
   );
 
   // Tab Bar Styles
   static const TextStyle activeTab = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: AppColors.whiteText,
+    color: AppColors.white,
   );
 
   static const TextStyle inactiveTab = TextStyle(
@@ -53,13 +53,13 @@ class AppTextStyles {
   static const TextStyle appBarTitle = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.w600,
-    color: AppColors.whiteText,
+    color: AppColors.white,
   );
 
   static const TextStyle appBarSubtitle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: AppColors.whiteText,
+    color: AppColors.white,
   );
 
   // Message Styles

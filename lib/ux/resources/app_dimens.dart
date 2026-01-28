@@ -11,6 +11,8 @@ class AppDimens {
   static const double avatarSizeMedium = 50.0;
   static const double avatarSizeLarge = 60.0;
   static const double storyAvatarSize = 64.0;
+  static const double storyAvatarPadding = 28.0;
+  static const double storyItemWidgetHeight = 85.0;
 
   static const double iconSizeSmall = 16.0;
   static const double iconSizeMedium = 24.0;
@@ -33,5 +35,9 @@ class AppDimens {
   static const double messageBubblePadding = 12.0;
 
 //TODO: Adjust value to 10
-  static const double ten = 12.0;
+  static const double sizeExtraExtraSmall = 2.0;
+  static const double sizeExtraSmall = 6.0;
+  static const double sizeSmall = 12.0;
+  static const double sizeExtraLarge = 28.0;
+  static const double sizeXXLarge = 200;
 }
