@@ -8,10 +8,8 @@ import 'package:flutter_chat_assessment/ux/shared/components/app_bottom_nav.dart
 import 'package:flutter_chat_assessment/ux/shared/components/blurred_bottom.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/empty_state.dart';
 import 'package:flutter_chat_assessment/ux/shared/components/home_app_bar.dart';
-import 'package:flutter_chat_assessment/ux/shared/components/page_indicators.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_bloc.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_event.dart';
-import 'package:flutter_chat_assessment/ux/views/chat_feed/bloc/chat_feed_state.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/chat_feed_page.dart';
 import 'package:flutter_chat_assessment/ux/views/chat_feed/components/user_stories_widget.dart';
 
@@ -63,30 +61,7 @@ class _NavigationHostPageState extends State<NavigationHostPage> {
               top: 0,
               bottom: 0,
               child: HomeAppBar(
-                widget: selectedIndex == 0
-                    ? BlocBuilder<ChatFeedBloc, ChatFeedState>(
-                        builder: (context, state) {
-                        if (state is ChatFeedLoading) {
-                          return const PageLoadingIndicator();
-                        }
-
-                        if (state is ChatFeedError) {
-                          return const PageErrorIndicator();
-                        }
-
-                        if (state is ChatFeedLoaded) {
-                          final userStories = state.stories;
-
-                          if (userStories.isEmpty) {
-                            return const PageErrorIndicator(
-                                message: 'No stories available');
-                          }
-
-                          return UserStoriesWidget(userStories: userStories);
-                        }
-                        return const SizedBox.shrink();
-                      })
-                    : null,
+                widget: selectedIndex == 0 ? const UserStoriesWidget() : null,
               ),
             ),
             Positioned(
