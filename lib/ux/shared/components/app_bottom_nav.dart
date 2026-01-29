@@ -110,13 +110,13 @@ class AppBottomNav extends StatelessWidget {
         bottom: AppDimens.paddingLarge,
       ),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
-            AppColors.primaryColor.withOpacity(0.9),
+            AppColors.primaryColor,
             AppColors.primaryGreen,
-            AppColors.primaryGreen.withOpacity(0.9),
             AppColors.primaryGreen,
-            AppColors.primaryColor.withOpacity(0.9),
+            AppColors.primaryGreen,
+            AppColors.primaryColor,
           ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
