@@ -27,7 +27,7 @@ class AppDimens {
 
   static const double bottomNavHeight = 63.0;
 
-  static const double storySectionHeight = 100.0;
+  static const double storySectionHeight = 116.0;
 
   static const double tabBarHeight = 46.0;
 
@@ -40,9 +40,9 @@ class AppDimens {
   static const double sizeSmall = 12.0;
   static const double sizeExtraLarge = 28.0;
   static const double sizeXLarge = 40.0;
-  static const double sizeXXLarge = 200;
+  static const double sizeXXLarge = 232;
 
-  static const double appBarTopPadding = 40.0;
+  static const double appBarTopPadding = 56.0;
   static const double appBarBottomPadding = 35.0;
 
   static const double borderRadiusXLarge = 32.0;

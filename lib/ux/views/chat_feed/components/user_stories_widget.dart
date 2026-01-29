@@ -14,7 +14,7 @@ class UserStoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: AppDimens.paddingLarge),
+      padding: const EdgeInsets.only(top: AppDimens.paddingXLarge),
       child: SizedBox(
         height: AppDimens.storyItemWidgetHeight,
         child: Row(
