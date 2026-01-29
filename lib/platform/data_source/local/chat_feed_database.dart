@@ -49,32 +49,14 @@ class ChatFeedDatabase {
     ''');
 
     await db.execute('''
-      CREATE TABLE messages (
-        id TEXT PRIMARY KEY,
-        chat_id TEXT NOT NULL,
-        content TEXT NOT NULL,
-        timestamp INTEGER NOT NULL,
-        is_sent_by_me INTEGER DEFAULT 0,
-        status TEXT NOT NULL,
-        FOREIGN KEY (chat_id) REFERENCES chats (id) ON DELETE CASCADE
-      )
-    ''');
-
-    await db.execute('''
       CREATE INDEX idx_chats_last_message_time 
       ON chats (last_message_time DESC)
-    ''');
-
-    await db.execute('''
-      CREATE INDEX idx_messages_chat_id_timestamp 
-      ON messages (chat_id, timestamp DESC)
     ''');
   }
 
   Future<void> seedSampleData() async {
     final db = await database;
 
-    await db.delete('messages');
     await db.delete('chats');
     await db.delete('users');
 
@@ -235,6 +217,6 @@ class ChatFeedDatabase {
 
   Future<void> close() async {
     final db = await database;
-    db.close();
+    await db.close();
   }
 }

@@ -25,7 +25,7 @@ class ChatFeedRepositoryImpl implements ChatFeedRepository {
 
     return result.map((row) {
       final userMap = {
-        'id': row['id'],
+        'id': row['u_id'],
         'name': row['name'],
         'avatar_url': row['avatar_url'],
         'is_online': row['is_online'],

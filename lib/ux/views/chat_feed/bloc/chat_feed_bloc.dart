@@ -15,8 +15,12 @@ class ChatFeedBloc extends Bloc<ChatFeedEvent, ChatFeedState> {
       LoadChatFeed event, Emitter<ChatFeedState> emit) async {
     try {
       emit(const ChatFeedLoading());
+
+      await _repository.seedDatabase();
+
       final chats = await _repository.getChats();
       final stories = await _repository.getStories();
+
       emit(ChatFeedLoaded(chats: chats, stories: stories));
     } catch (e) {
       emit(ChatFeedError('Failed to load chats and stories: ${e.toString()}'));
@@ -28,10 +32,11 @@ class ChatFeedBloc extends Bloc<ChatFeedEvent, ChatFeedState> {
     try {
       final currentState = state;
       final chats = await _repository.getChats();
+      final stories = await _repository.getStories();
       if (currentState is ChatFeedLoaded) {
-        emit(currentState.copyWith(chats: chats));
+        emit(currentState.copyWith(chats: chats, stories: stories));
       } else {
-        emit(ChatFeedLoaded(chats: chats, stories: const []));
+        emit(ChatFeedLoaded(chats: chats, stories: stories));
       }
     } catch (e) {
       emit(ChatFeedError('Failed to refresh chats: ${e.toString()}'));
